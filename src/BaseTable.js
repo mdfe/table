@@ -19,7 +19,6 @@ class BaseTable extends React.Component {
     store: PropTypes.object.isRequired,
     expander: PropTypes.object.isRequired,
     getRowKey: PropTypes.func,
-    isAnyColumnsFixed: PropTypes.bool,
   }
 
   static contextTypes = {
@@ -47,7 +46,7 @@ class BaseTable extends React.Component {
       onRowMouseLeave,
       onRow,
     } = table.props;
-    const { getRowKey, fixed, expander, isAnyColumnsFixed } = this.props;
+    const { getRowKey, fixed, expander } = this.props;
 
     const rows = [];
 
@@ -107,7 +106,6 @@ class BaseTable extends React.Component {
               ancestorKeys={ancestorKeys}
               ref={rowRef(record, i, indent)}
               components={components}
-              isAnyColumnsFixed={isAnyColumnsFixed}
               {...expandableRow}
             />
           )}

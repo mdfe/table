@@ -4,7 +4,7 @@ import { debounce, warningOnce } from './utils';
 import shallowequal from 'shallowequal';
 import addEventListener from 'rc-util/lib/Dom/addEventListener';
 import { Provider, create } from 'mini-store';
-import merge from 'lodash/merge';
+import merge from 'lodash.merge';
 import ColumnManager from './ColumnManager';
 import classes from 'component-classes';
 import HeadTable from './HeadTable';
@@ -16,6 +16,7 @@ export default class Table extends React.Component {
     data: PropTypes.array,
     useFixedHeader: PropTypes.bool,
     columns: PropTypes.array,
+    footColumns: PropTypes.array,
     prefixCls: PropTypes.string,
     bodyStyle: PropTypes.object,
     style: PropTypes.object,
@@ -274,12 +275,25 @@ export default class Table extends React.Component {
     }
     const target = e.target;
     const { scroll = {} } = this.props;
-    const { headTable, bodyTable } = this;
+    const { headTable, bodyTable, footTable } = this;
     if (target.scrollLeft !== this.lastScrollLeft && scroll.x) {
-      if (target === bodyTable && headTable) {
-        headTable.scrollLeft = target.scrollLeft;
+      if (target === bodyTable) {
+        if (headTable) {
+          headTable.scrollLeft = target.scrollLeft;
+        }
+        if (footTable) {
+          footTable.scrollLeft = target.scrollLeft;
+        } 
       } else if (target === headTable && bodyTable) {
         bodyTable.scrollLeft = target.scrollLeft;
+        if (footTable) {
+          footTable.scrollLeft = target.scrollLeft;
+        } 
+      } else if (target === footTable && bodyTable) {
+        bodyTable.scrollLeft = target.scrollLeft;
+        if (headTable) {
+          headTable.scrollLeft = target.scrollLeft;
+        }
       }
       this.setScrollPositionClassName();
     }
@@ -318,13 +332,12 @@ export default class Table extends React.Component {
 
   renderMainTable() {
     const { scroll, prefixCls } = this.props;
-    const isAnyColumnsFixed = this.columnManager.isAnyColumnsFixed();
-    const scrollable = isAnyColumnsFixed || scroll.x || scroll.y;
+    const scrollable =
+      this.columnManager.isAnyColumnsFixed() || scroll.x || scroll.y;
 
     const table = [
       this.renderTable({
         columns: this.columnManager.groupedColumns(),
-        isAnyColumnsFixed,
       }),
       this.renderEmptyText(),
       this.renderFooter(),
@@ -362,8 +375,8 @@ export default class Table extends React.Component {
   }
 
   renderTable(options) {
-    const { columns, fixed, isAnyColumnsFixed } = options;
-    const { prefixCls, scroll = {} } = this.props;
+    const { columns, fixed } = options;
+    const { prefixCls, scroll = {}, footColumns} = this.props;
     const tableClassName = (scroll.x || fixed) ? `${prefixCls}-fixed` : '';
 
     const headTable = (
@@ -386,11 +399,22 @@ export default class Table extends React.Component {
         getRowKey={this.getRowKey}
         handleBodyScroll={this.handleBodyScroll}
         expander={this.expander}
-        isAnyColumnsFixed={isAnyColumnsFixed}
       />
     );
 
-    return [headTable, bodyTable];
+    const footTable = footColumns && footColumns.length ? (
+      <HeadTable
+        key="foot"
+        refName="footTable"
+        columns={columns}
+        fixed={fixed}
+        tableClassName={tableClassName}
+        handleBodyScrollLeft={this.handleBodyScrollLeft}
+        expander={this.expander}
+      />
+    ) : undefined;
+
+    return [headTable, bodyTable, footTable];
   }
 
   renderTitle() {

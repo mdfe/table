@@ -27,7 +27,7 @@ export default function HeadTable(props, { table }) {
   return (
     <div
       key="headTable"
-      ref={fixed ? null : saveRef('headTable')}
+      ref={fixed ? null : saveRef(props.refName || 'headTable')}
       className={`${prefixCls}-header`}
       style={headStyle}
       onScroll={handleBodyScrollLeft}
@@ -49,6 +49,7 @@ HeadTable.propTypes = {
     PropTypes.string,
     PropTypes.bool,
   ]),
+  refName: PropTypes.string,
   columns: PropTypes.array.isRequired,
   tableClassName: PropTypes.string.isRequired,
   handleBodyScrollLeft: PropTypes.func.isRequired,
