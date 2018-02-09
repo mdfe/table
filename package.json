@@ -1,5 +1,5 @@
 {
-  "name": "rc-table",
+  "name": "@mdfe/rc-table",
   "version": "6.1.5",
   "description": "table ui component for react",
   "keywords": [
