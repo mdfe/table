@@ -6314,6 +6314,7 @@ var Table = function (_React$Component) {
     var footTable = footColumns && footColumns.length ? __WEBPACK_IMPORTED_MODULE_4_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_13__HeadTable__["a" /* default */], {
       key: 'foot',
       refName: 'footTable',
+      className: 'footTable',
       columns: footColumns,
       fixed: fixed,
       tableClassName: tableClassName,
@@ -8482,7 +8483,8 @@ function HeadTable(props, _ref) {
       fixed = props.fixed,
       tableClassName = props.tableClassName,
       handleBodyScrollLeft = props.handleBodyScrollLeft,
-      expander = props.expander;
+      expander = props.expander,
+      className = props.className;
   var saveRef = table.saveRef;
   var useFixedHeader = table.props.useFixedHeader;
 
@@ -8507,7 +8509,7 @@ function HeadTable(props, _ref) {
     {
       key: 'headTable',
       ref: fixed ? null : saveRef(props.refName || 'headTable'),
-      className: prefixCls + '-header',
+      className: prefixCls + '-header ' + (className || ''),
       style: headStyle,
       onScroll: handleBodyScrollLeft
     },
