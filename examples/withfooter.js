@@ -1,8 +1,8 @@
 /* eslint-disable no-console,func-names,react/no-multi-comp */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Table from 'rc-table';
-import 'rc-table/assets/index.less';
+import Table from '../src';
+import '../assets/index.less';
 
 const columns = new Array(12).fill(1).map((a, i) => ({
   title: <div style={{width: 100, maxWidth: 100}}>{'title' + i}</div>,
@@ -29,6 +29,7 @@ ReactDOM.render(
   <div>
     <h2>simple table</h2>
     <Table
+      footFixedOnTop
       columns={columns}
       footColumns={columns}
       data={data}

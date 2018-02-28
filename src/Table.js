@@ -17,6 +17,7 @@ export default class Table extends React.Component {
     useFixedHeader: PropTypes.bool,
     columns: PropTypes.array,
     footColumns: PropTypes.array,
+    footFixedOnTop: PropTypes.bool,
     prefixCls: PropTypes.string,
     bodyStyle: PropTypes.object,
     style: PropTypes.object,
@@ -376,7 +377,7 @@ export default class Table extends React.Component {
 
   renderTable(options) {
     const { columns, fixed } = options;
-    const { prefixCls, scroll = {}, footColumns} = this.props;
+    const { prefixCls, scroll = {}, footColumns, footFixedOnTop } = this.props;
     const tableClassName = (scroll.x || fixed) ? `${prefixCls}-fixed` : '';
 
     const headTable = (
@@ -406,6 +407,7 @@ export default class Table extends React.Component {
       <HeadTable
         key="foot"
         refName="footTable"
+        className="footTable"
         columns={footColumns}
         fixed={fixed}
         tableClassName={tableClassName}
@@ -414,7 +416,7 @@ export default class Table extends React.Component {
       />
     ) : undefined;
 
-    return [headTable, bodyTable, footTable];
+    return footFixedOnTop ? [headTable, footTable, bodyTable] : [headTable, bodyTable, footTable];
   }
 
   renderTitle() {
