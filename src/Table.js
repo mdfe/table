@@ -406,7 +406,7 @@ export default class Table extends React.Component {
       <HeadTable
         key="foot"
         refName="footTable"
-        columns={columns}
+        columns={footColumns}
         fixed={fixed}
         tableClassName={tableClassName}
         handleBodyScrollLeft={this.handleBodyScrollLeft}
