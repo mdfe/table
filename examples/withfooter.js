@@ -5898,8 +5898,8 @@ __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODU
     columns: columns,
     footColumns: columns,
     data: data,
-    onBodyScroll: function onBodyScroll() {
-      console.log('scroll');
+    onBodyScroll: function onBodyScroll(x, y) {
+      console.log('scroll: x: ' + x + ', y: ' + y);
     }
   })
 ), document.getElementById('__react-content'));
@@ -6083,7 +6083,8 @@ var Table = function (_React$Component) {
     };
 
     _this.handleBodyScroll = function (e) {
-      _this.props.onBodyScroll();
+      var target = e.target;
+      _this.props.onBodyScroll(target.scrollLeft, target.scrollTop);
       _this.handleBodyScrollLeft(e);
       _this.handleBodyScrollTop(e);
     };
