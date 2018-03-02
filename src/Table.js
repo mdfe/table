@@ -30,6 +30,7 @@ export default class Table extends React.Component {
     onRowContextMenu: PropTypes.func,
     onRowMouseEnter: PropTypes.func,
     onRowMouseLeave: PropTypes.func,
+    onBodyScroll: PropTypes.func,
     showHeader: PropTypes.bool,
     title: PropTypes.func,
     id: PropTypes.string,
@@ -67,6 +68,7 @@ export default class Table extends React.Component {
     rowClassName: () => '',
     onRow() {},
     onHeaderRow() {},
+    onBodyScroll() {},
     prefixCls: 'rc-table',
     bodyStyle: {},
     style: {},
@@ -323,6 +325,7 @@ export default class Table extends React.Component {
   }
 
   handleBodyScroll = (e) => {
+    this.props.onBodyScroll();
     this.handleBodyScrollLeft(e);
     this.handleBodyScrollTop(e);
   }

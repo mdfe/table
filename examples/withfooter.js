@@ -3,15 +3,20 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Table from '../src';
 import '../assets/index.less';
-
-const columns = new Array(12).fill(1).map((a, i) => ({
-  title: <div style={{width: 100, maxWidth: 100}}>{'title' + i}</div>,
-  className:  'title' + i,
-  dataIndex: 'a',
-  key: Math.random().toString(),
-  fixed: i > 1 ? '' : 'left',
-  render: (value) => <div style={{width: 100, maxWidth: 100}}>{value}</div>
-}));
+const columns = [
+  { title: 'title1', dataIndex: 'a', key: 'a', width: 100 },
+  { title: 'title2', dataIndex: 'b', key: 'b', width: 100 },
+  { title: 'title3', dataIndex: 'c', key: 'c', width: 100 },
+  { title: 'title4', dataIndex: 'b', key: 'd', width: 100 },
+  { title: 'title5', dataIndex: 'b', key: 'e', width: 100 },
+  { title: 'title6', dataIndex: 'b', key: 'f', width: 100 },
+  { title: 'title7', dataIndex: 'b', key: 'g', width: 100 },
+  { title: 'title8', dataIndex: 'b', key: 'h', width: 100 },
+  { title: 'title9', dataIndex: 'b', key: 'i', width: 100 },
+  { title: 'title10', dataIndex: 'b', key: 'j', width: 100 },
+  { title: 'title11', dataIndex: 'b', key: 'k', width: 100 },
+  { title: 'title12', dataIndex: 'b', key: 'l', width: 100 },
+];
 
 const data = [
   { a: '123', b: 'xxxxxxxx xxxxxxxx', d: 3, key: '1' },
@@ -27,15 +32,15 @@ const data = [
 
 ReactDOM.render(
   <div>
-    <h2>simple table</h2>
+    <h2>Scroll X/Y</h2>
     <Table
-      footFixedOnTop
+      useFixedHeader
+      style={{ width: 800 }}
+      scroll={{ x: 1500, y: 300 }}
       columns={columns}
       footColumns={columns}
       data={data}
-      style={{ width: 800 }}
-      scroll={{ x: true, y: 300 }}
+      onBodyScroll={() => { console.log('scroll') }}
     />
-  </div>,
-  document.getElementById('__react-content')
-);
+  </div>
+, document.getElementById('__react-content'));
