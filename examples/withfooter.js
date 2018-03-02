@@ -5879,27 +5879,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-
-var columns = new Array(12).fill(1).map(function (a, i) {
-  return {
-    title: __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      'div',
-      { style: { width: 100, maxWidth: 100 } },
-      'title' + i
-    ),
-    className: 'title' + i,
-    dataIndex: 'a',
-    key: Math.random().toString(),
-    fixed: i > 1 ? '' : 'left',
-    render: function render(value) {
-      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'div',
-        { style: { width: 100, maxWidth: 100 } },
-        value
-      );
-    }
-  };
-});
+var columns = [{ title: 'title1', dataIndex: 'a', key: 'a', width: 100 }, { title: 'title2', dataIndex: 'b', key: 'b', width: 100 }, { title: 'title3', dataIndex: 'c', key: 'c', width: 100 }, { title: 'title4', dataIndex: 'b', key: 'd', width: 100 }, { title: 'title5', dataIndex: 'b', key: 'e', width: 100 }, { title: 'title6', dataIndex: 'b', key: 'f', width: 100 }, { title: 'title7', dataIndex: 'b', key: 'g', width: 100 }, { title: 'title8', dataIndex: 'b', key: 'h', width: 100 }, { title: 'title9', dataIndex: 'b', key: 'i', width: 100 }, { title: 'title10', dataIndex: 'b', key: 'j', width: 100 }, { title: 'title11', dataIndex: 'b', key: 'k', width: 100 }, { title: 'title12', dataIndex: 'b', key: 'l', width: 100 }];
 
 var data = [{ a: '123', b: 'xxxxxxxx xxxxxxxx', d: 3, key: '1' }, { a: 'cdd', b: 'edd12221 edd12221', d: 3, key: '2' }, { a: '133', c: 'edd12221 edd12221', d: 2, key: '3' }, { a: '133', c: 'edd12221 edd12221', d: 2, key: '4' }, { a: '133', c: 'edd12221 edd12221', d: 2, key: '5' }, { a: '133', c: 'edd12221 edd12221', d: 2, key: '6' }, { a: '133', c: 'edd12221 edd12221', d: 2, key: '7' }, { a: '133', c: 'edd12221 edd12221', d: 2, key: '8' }, { a: '133', c: 'edd12221 edd12221', d: 2, key: '9' }];
 
@@ -5909,15 +5889,18 @@ __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODU
   __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     'h2',
     null,
-    'simple table'
+    'Scroll X/Y'
   ),
   __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__src__["a" /* default */], {
-    footFixedOnTop: true,
+    useFixedHeader: true,
+    style: { width: 800 },
+    scroll: { x: 1500, y: 300 },
     columns: columns,
     footColumns: columns,
     data: data,
-    style: { width: 800 },
-    scroll: { x: true, y: 300 }
+    onBodyScroll: function onBodyScroll() {
+      console.log('scroll');
+    }
   })
 ), document.getElementById('__react-content'));
 
@@ -6100,6 +6083,7 @@ var Table = function (_React$Component) {
     };
 
     _this.handleBodyScroll = function (e) {
+      _this.props.onBodyScroll();
       _this.handleBodyScrollLeft(e);
       _this.handleBodyScrollTop(e);
     };
@@ -6441,6 +6425,7 @@ Table.propTypes = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___de
   onRowContextMenu: __WEBPACK_IMPORTED_MODULE_5_prop_types___default.a.func,
   onRowMouseEnter: __WEBPACK_IMPORTED_MODULE_5_prop_types___default.a.func,
   onRowMouseLeave: __WEBPACK_IMPORTED_MODULE_5_prop_types___default.a.func,
+  onBodyScroll: __WEBPACK_IMPORTED_MODULE_5_prop_types___default.a.func,
   showHeader: __WEBPACK_IMPORTED_MODULE_5_prop_types___default.a.bool,
   title: __WEBPACK_IMPORTED_MODULE_5_prop_types___default.a.func,
   id: __WEBPACK_IMPORTED_MODULE_5_prop_types___default.a.string,
@@ -6477,6 +6462,7 @@ Table.defaultProps = {
   },
   onRow: function onRow() {},
   onHeaderRow: function onHeaderRow() {},
+  onBodyScroll: function onBodyScroll() {},
 
   prefixCls: 'rc-table',
   bodyStyle: {},
