@@ -325,7 +325,8 @@ export default class Table extends React.Component {
   }
 
   handleBodyScroll = (e) => {
-    this.props.onBodyScroll();
+    const target = e.target;
+    this.props.onBodyScroll(target.scrollLeft, target.scrollTop);
     this.handleBodyScrollLeft(e);
     this.handleBodyScrollTop(e);
   }

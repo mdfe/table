@@ -40,7 +40,7 @@ ReactDOM.render(
       columns={columns}
       footColumns={columns}
       data={data}
-      onBodyScroll={() => { console.log('scroll') }}
+      onBodyScroll={(x, y) => { console.log(`scroll: x: ${x}, y: ${y}`) }}
     />
   </div>
 , document.getElementById('__react-content'));
